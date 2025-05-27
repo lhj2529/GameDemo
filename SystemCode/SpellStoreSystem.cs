@@ -5,35 +5,35 @@ using UnityEngine;
 [System.Serializable]
 public struct CommandPrefabPair
 {
-    public string command;      // Ö¸Áî×Ö·û´®£¨ÀıÈç"create_cube"£©
-    public GameObject prefab;   // ¶ÔÓ¦µÄÔ¤ÖÆÌå
+    public string command;      // æŒ‡ä»¤å­—ç¬¦ä¸²ï¼ˆä¾‹å¦‚"create_cube"ï¼‰
+    public GameObject prefab;   // å¯¹åº”çš„é¢„åˆ¶ä½“
 }
 
 public class SpellStoreSystem : MonoBehaviour
 {
-    // Inspector¿É¼ûµÄÅäÖÃÁĞ±í
+    // Inspectorå¯è§çš„é…ç½®åˆ—è¡¨
     [SerializeField]
     private List<CommandPrefabPair> commandPrefabList = new List<CommandPrefabPair>();
 
-    // Êµ¼ÊÊ¹ÓÃµÄ×Öµä
+    // å®é™…ä½¿ç”¨çš„å­—å…¸
     private Dictionary<string, GameObject> commandDictionary = new Dictionary<string, GameObject>();
 
     void Start()
     {
-        // ³õÊ¼»¯×Öµä
+        // åˆå§‹åŒ–å­—å…¸
         foreach (var pair in commandPrefabList)
         {
-            // ·ÀÓùĞÔ±à³Ì£ºÌø¹ıÎŞĞ§ÌõÄ¿
+            // é˜²å¾¡æ€§ç¼–ç¨‹ï¼šè·³è¿‡æ— æ•ˆæ¡ç›®
             if (string.IsNullOrEmpty(pair.command) || pair.prefab == null)
             {
-                Debug.LogError($"ÎŞĞ§ÅäÖÃ: {pair.command}");
+                Debug.LogError($"æ— æ•ˆé…ç½®: {pair.command}");
                 continue;
             }
 
-            // ·ÀÖ¹ÖØ¸´¼ü
+            // é˜²æ­¢é‡å¤é”®
             if (commandDictionary.ContainsKey(pair.command))
             {
-                Debug.LogError($"ÖØ¸´Ö¸Áî: {pair.command}");
+                Debug.LogError($"é‡å¤æŒ‡ä»¤: {pair.command}");
                 continue;
             }
 
@@ -42,14 +42,14 @@ public class SpellStoreSystem : MonoBehaviour
     }
 
 
-    // ¸ù¾İÖ¸Áî»ñÈ¡Ô¤ÖÆÌå
+    // æ ¹æ®æŒ‡ä»¤è·å–é¢„åˆ¶ä½“
     public GameObject GetPrefab(string command)
     {
         if (commandDictionary.TryGetValue(command, out GameObject prefab))
         {
             return prefab;
         }
-        Debug.LogWarning($"Î´ÖªÖ¸Áî: {command}");
+        Debug.LogWarning($"æœªçŸ¥æŒ‡ä»¤: {command}");
         return null;
     }
 
