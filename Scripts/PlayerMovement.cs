@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;      // ÒÆ¶¯ËÙ¶È
-    public float gravity = -9.81f;    // ÖØÁ¦¼ÓËÙ¶È
-    public float jumpHeight = 2f;     // ÌøÔ¾¸ß¶È
+    public float moveSpeed = 5f;      // ç§»åŠ¨é€Ÿåº¦
+    public float gravity = -9.81f;    // é‡åŠ›åŠ é€Ÿåº¦
+    public float jumpHeight = 2f;     // è·³è·ƒé«˜åº¦
 
     private Animator animator;
     private CharacterController controller;
@@ -22,21 +22,21 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // ¼ì²âÊÇ·ñ½Ó´¥µØÃæ
+        // æ£€æµ‹æ˜¯å¦æ¥è§¦åœ°é¢
         isGrounded = controller.isGrounded;
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f; // ÇáÎ¢ÏÂÑ¹·ÀÖ¹Ğü¿Õ
+            velocity.y = -2f; // è½»å¾®ä¸‹å‹é˜²æ­¢æ‚¬ç©º
         }
 
         if (canMove)
         {
-            // »ñÈ¡ÊäÈë
+            // è·å–è¾“å…¥
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
             
 
-            // ¹éÒ»»¯ÊäÈëÏòÁ¿£¬·ÀÖ¹Ğ±ÏòÒÆ¶¯ËÙ¶È¹ı¿ì
+            // å½’ä¸€åŒ–è¾“å…¥å‘é‡ï¼Œé˜²æ­¢æ–œå‘ç§»åŠ¨é€Ÿåº¦è¿‡å¿«
             Vector2 input = new Vector2(horizontal, vertical).normalized;
 
 
@@ -55,20 +55,20 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetBool("isMove", false);
             }
 
-            // ¸ù¾İÊäÈë¼ÆËãÒÆ¶¯·½Ïò£¨ÊÀ½ç×ø±êÏµ£©
+            // æ ¹æ®è¾“å…¥è®¡ç®—ç§»åŠ¨æ–¹å‘ï¼ˆä¸–ç•Œåæ ‡ç³»ï¼‰
             Vector3 moveDirection = transform.right * horizontal + transform.forward * vertical;
 
-            // Ó¦ÓÃÒÆ¶¯£¨ÒÑ¿¼ÂÇÖ¡ÂÊ£©
+            // åº”ç”¨ç§»åŠ¨ï¼ˆå·²è€ƒè™‘å¸§ç‡ï¼‰
             controller.Move(moveDirection * moveSpeed * Time.deltaTime);
         }
 
-        // ÌøÔ¾
+        // è·³è·ƒ
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
-        // Ó¦ÓÃÖØÁ¦
+        // åº”ç”¨é‡åŠ›
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
