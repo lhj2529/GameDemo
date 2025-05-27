@@ -38,9 +38,9 @@ public class Away : MonoBehaviour
     {
         if (playerTransform == null) return;
 
-            // ¼ÆËãÔ¶Àë·½Ïò£¨BossÎ»ÖÃ - Íæ¼ÒÎ»ÖÃµÄ·ûºÅ£©
+            // è®¡ç®—è¿œç¦»æ–¹å‘ï¼ˆBossä½ç½® - ç©å®¶ä½ç½®çš„ç¬¦å·ï¼‰
         float direction = Mathf.Sign(transform.position.x - playerTransform.position.x);
-            // ÉèÖÃ¸ÕÌåËÙ¶È
+            // è®¾ç½®åˆšä½“é€Ÿåº¦
         rb.velocity = new Vector2(direction * bossData.chaseSpeed, rb.velocity.y);
 
     }
@@ -58,18 +58,18 @@ public class Away : MonoBehaviour
     {
         if (playerTransform == null) return;
 
-        // ¼ÆËãË®Æ½·½Ïò²î
+        // è®¡ç®—æ°´å¹³æ–¹å‘å·®
         float xDirection = playerTransform.position.x - transform.position.x;
 
-        // ¸ù¾İ·½Ïò·­×ªSprite
+        // æ ¹æ®æ–¹å‘ç¿»è½¬Sprite
         if (xDirection > 0)
         {
-            this.GetComponent<SpriteRenderer>().flipX = false; // Íæ¼ÒÔÚzuo²à
+            this.GetComponent<SpriteRenderer>().flipX = false; // ç©å®¶åœ¨zuoä¾§
 
         }
         else if (xDirection < 0)
         {
-            this.GetComponent<SpriteRenderer>().flipX = true;  // Íæ¼ÒÔÚyou²à
+            this.GetComponent<SpriteRenderer>().flipX = true;  // ç©å®¶åœ¨youä¾§
         }
     }
 }
