@@ -42,7 +42,7 @@ public class CoreMechanics : MonoBehaviour
     void ComboAdd()
     {
         ComboNum++;
-        Debug.Log("µ±Ç°Á¬»÷ÊıÎª" +ComboNum);
+        Debug.Log("å½“å‰è¿å‡»æ•°ä¸º" +ComboNum);
     }
 
     void ReceiveResetEvent()
@@ -53,10 +53,10 @@ public class CoreMechanics : MonoBehaviour
     void OnGUI()
     {
         labelStyle = new GUIStyle(GUI.skin.label);
-        labelStyle.fontSize = 35;  // ÉèÖÃ×ÖÌå´óĞ¡£¨µ¥Î»£ºÏñËØ£©
+        labelStyle.fontSize = 35;  // è®¾ç½®å­—ä½“å¤§å°ï¼ˆå•ä½ï¼šåƒç´ ï¼‰
 
-        GUI.Label(new Rect(10, 110, 600, 60), $"µ±Ç°Á¬»÷Êı: {ComboNum}", labelStyle);
-        GUI.Label(new Rect(10, 160, 600, 60), $"µ±Ç°Á¬»÷½×¶Î: {ComboStage}", labelStyle);
+        GUI.Label(new Rect(10, 110, 600, 60), $"å½“å‰è¿å‡»æ•°: {ComboNum}", labelStyle);
+        GUI.Label(new Rect(10, 160, 600, 60), $"å½“å‰è¿å‡»é˜¶æ®µ: {ComboStage}", labelStyle);
 
     }
 }
