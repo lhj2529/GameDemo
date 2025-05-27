@@ -4,33 +4,33 @@ using UnityEngine;
 
 public class EffectsManager : MonoBehaviour
 {
-    //µ¥ÀıÊµÀı
+    //å•ä¾‹å®ä¾‹
     public static EffectsManager Instance { get; private set; }
 
-    //³ØÅäÖÃ£º´æ´¢Ô¤ÖÆÌå
+    //æ± é…ç½®ï¼šå­˜å‚¨é¢„åˆ¶ä½“
     [System.Serializable]
     public class Pool
     {
-        public string tag;  //¶ÔÏó±êÊ¶
-        public GameObject prefab;   //Ô¤ÖÆÌå
+        public string tag;  //å¯¹è±¡æ ‡è¯†
+        public GameObject prefab;   //é¢„åˆ¶ä½“
     }
 
-    public List<Pool> pools;    //ËùÓĞ¶ÔÏó³ØÅäÖÃ
-    private Dictionary<string, Queue<GameObject>> poolDictionary;   //Êµ¼Ê¶ÔÏó³Ø
+    public List<Pool> pools;    //æ‰€æœ‰å¯¹è±¡æ± é…ç½®
+    private Dictionary<string, Queue<GameObject>> poolDictionary;   //å®é™…å¯¹è±¡æ± 
 
     private void Awake()
     {
-        //µ¥Àı³õÊ¼»¯
+        //å•ä¾‹åˆå§‹åŒ–
         if(Instance == null)
             Instance = this;
         else
             Destroy(gameObject);
 
-        //³õÊ¼»¯ËùÓĞ¶ÔÏó³Ø
+        //åˆå§‹åŒ–æ‰€æœ‰å¯¹è±¡æ± 
         InitializePools();
     }
 
-    //³õÊ¼»¯ËùÓĞ³Ø
+    //åˆå§‹åŒ–æ‰€æœ‰æ± 
     private void InitializePools()
     {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
@@ -43,12 +43,12 @@ public class EffectsManager : MonoBehaviour
 
     }
 
-    // ´´½¨ĞÂ¶ÔÏó²¢ÉèÖÃÎªÎ´¼¤»î
+    // åˆ›å»ºæ–°å¯¹è±¡å¹¶è®¾ç½®ä¸ºæœªæ¿€æ´»
     private GameObject CreateNewObject(GameObject prefab)
     {
         GameObject obj = Instantiate(prefab);
         obj.SetActive(false);
-        obj.transform.SetParent(transform); // ¿ÉÑ¡£º½«¶ÔÏóÉèÎª³ØµÄ×ÓÎïÌå
+        obj.transform.SetParent(transform); // å¯é€‰ï¼šå°†å¯¹è±¡è®¾ä¸ºæ± çš„å­ç‰©ä½“
         return obj;
     }
 
@@ -56,13 +56,13 @@ public class EffectsManager : MonoBehaviour
     {
         if(!poolDictionary.ContainsKey(tag))
         {
-            Debug.Log("¶ÔÏó³ØÎ´ÕÒµ½");
+            Debug.Log("å¯¹è±¡æ± æœªæ‰¾åˆ°");
             return null;
         }
 
         Queue<GameObject> poolQueue=poolDictionary[tag];
 
-        //Èç¹û³ØÎª¿Õ£¬¶¯Ì¬´´½¨Ò»¸öĞÂ¶ÔÏó
+        //å¦‚æœæ± ä¸ºç©ºï¼ŒåŠ¨æ€åˆ›å»ºä¸€ä¸ªæ–°å¯¹è±¡
         if (poolQueue.Count == 0)
         {
             Pool poolConfig = pools.Find(p => p.tag == tag);
@@ -73,7 +73,7 @@ public class EffectsManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("Î´ÕÒµ½±êÇ©µÄ³Ø");
+                Debug.Log("æœªæ‰¾åˆ°æ ‡ç­¾çš„æ± ");
                 return null;
             }
         }
@@ -90,16 +90,16 @@ public class EffectsManager : MonoBehaviour
         return obj;
     }
 
-    //»ØÊÕµ½¶ÔÏó³Ø
+    //å›æ”¶åˆ°å¯¹è±¡æ± 
     public void ReturnToPool(string tag,GameObject obj)
     {
         if (!poolDictionary.ContainsKey(tag))
         {
-            Debug.Log("Î´ÕÒµ½±êÇ©");
+            Debug.Log("æœªæ‰¾åˆ°æ ‡ç­¾");
             return;
         }
 
-        //ÖØÖÃ¶ÔÏó×´Ì¬
+        //é‡ç½®å¯¹è±¡çŠ¶æ€
         obj.SetActive(false);
         poolDictionary[tag].Enqueue(obj);
     }
