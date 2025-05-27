@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class ComboAttack_01 : MonoBehaviour
 {
-    [Header("Á¬»÷ÉèÖÃ")]
-    public int maxCombo = 4;             // ×î´óÁ¬»÷Êı
-    public float comboResetTime = 2f;    // Á¬»÷ÖØÖÃÊ±¼ä
-    public float[] attackIntervals;      // Ã¿¶Î¹¥»÷Ö®¼äµÄ¼ä¸ô
+    [Header("è¿å‡»è®¾ç½®")]
+    public int maxCombo = 4;             // æœ€å¤§è¿å‡»æ•°
+    public float comboResetTime = 2f;    // è¿å‡»é‡ç½®æ—¶é—´
+    public float[] attackIntervals;      // æ¯æ®µæ”»å‡»ä¹‹é—´çš„é—´éš”
 
-    private int currentCombo = 0;        // µ±Ç°Á¬»÷¶ÎÊı
-    private float lastAttackTime;        // ×îºó¹¥»÷Ê±¼ä
-    private bool isAttacking = false;    // ÊÇ·ñÕıÔÚ¹¥»÷ÖĞ
+    private int currentCombo = 0;        // å½“å‰è¿å‡»æ®µæ•°
+    private float lastAttackTime;        // æœ€åæ”»å‡»æ—¶é—´
+    private bool isAttacking = false;    // æ˜¯å¦æ­£åœ¨æ”»å‡»ä¸­
 
     private GameObject effect;
     [SerializeField] private Animator animator1;
@@ -27,13 +27,13 @@ public class ComboAttack_01 : MonoBehaviour
 
     void Update()
     {
-        // ¼ì²â¹¥»÷ÊäÈë
+        // æ£€æµ‹æ”»å‡»è¾“å…¥
         if (Input.GetMouseButtonDown(0) && CanAttack())
         {
             StartCoroutine(ExecuteAttack());
         }
 
-        // Á¬»÷³¬Ê±¼ì²â
+        // è¿å‡»è¶…æ—¶æ£€æµ‹
         if (Time.time - lastAttackTime > comboResetTime && currentCombo > 0)
         {
             ResetCombo();
@@ -42,7 +42,7 @@ public class ComboAttack_01 : MonoBehaviour
 
     bool CanAttack()
     {
-        // µ±Ç°²»ÔÚ¹¥»÷×´Ì¬ÇÒÁ¬»÷Î´³¬¹ıÉÏÏŞ
+        // å½“å‰ä¸åœ¨æ”»å‡»çŠ¶æ€ä¸”è¿å‡»æœªè¶…è¿‡ä¸Šé™
         return !isAttacking && currentCombo < maxCombo;
     }
 
@@ -52,11 +52,11 @@ public class ComboAttack_01 : MonoBehaviour
         currentCombo++;
         lastAttackTime = Time.time;
 
-        // Ö´ĞĞµ±Ç°¶Î¹¥»÷
+        // æ‰§è¡Œå½“å‰æ®µæ”»å‡»
         switch (currentCombo)
         {
             case 1:
-                //Debug.Log("µÚÒ»¶Î¹¥»÷");
+                //Debug.Log("ç¬¬ä¸€æ®µæ”»å‡»");
                 events.OnAttackColliderCheck?.Invoke(1);
                 animator1.CrossFade("combo_attack_01_01", 0.008f);
                 effect= EffectsManager.Instance.GetFromPool(
@@ -67,7 +67,7 @@ public class ComboAttack_01 : MonoBehaviour
                 
                 break;
             case 2:
-                //Debug.Log("µÚ¶ş¶Î¹¥»÷");
+                //Debug.Log("ç¬¬äºŒæ®µæ”»å‡»");
                 events.OnAttackColliderCheck?.Invoke(2);
                 animator1.CrossFade("combo_attack_01_02", 0f);
                 EffectsManager.Instance.GetFromPool(
@@ -82,7 +82,7 @@ public class ComboAttack_01 : MonoBehaviour
                          );
                 break;
             case 3:
-                //Debug.Log("µÚÈı¶Î¹¥»÷");
+                //Debug.Log("ç¬¬ä¸‰æ®µæ”»å‡»");
                 events.OnAttackColliderCheck?.Invoke(3);
                 animator1.CrossFade("combo_attack_01_03",  0f);
                 EffectsManager.Instance.GetFromPool(
@@ -92,7 +92,7 @@ public class ComboAttack_01 : MonoBehaviour
                          );
                 break;
             case 4:
-                //Debug.Log("µÚËÄ¶Î¹¥»÷");
+                //Debug.Log("ç¬¬å››æ®µæ”»å‡»");
                 events.OnAttackColliderCheck?.Invoke(4);
                 animator1.CrossFade("combo_attack_01_04", 0f);
                 EffectsManager.Instance.GetFromPool(
@@ -108,11 +108,11 @@ public class ComboAttack_01 : MonoBehaviour
                 break;
         }
 
-        // µÈ´ı¹¥»÷¼ä¸ô
+        // ç­‰å¾…æ”»å‡»é—´éš”
         float interval = attackIntervals[Mathf.Clamp(currentCombo - 1, 0, attackIntervals.Length - 1)];
         yield return new WaitForSeconds(interval);
 
-        // ×Ô¶¯ÖØÖÃÁ¬»÷
+        // è‡ªåŠ¨é‡ç½®è¿å‡»
         if (currentCombo >= maxCombo)
         {
             ResetCombo();
@@ -129,13 +129,13 @@ public class ComboAttack_01 : MonoBehaviour
         isAttacking = false;   
     }
 
-    // ¿ÉÊÓ»¯µ÷ÊÔĞÅÏ¢
+    // å¯è§†åŒ–è°ƒè¯•ä¿¡æ¯
     void OnGUI()
     {
         labelStyle = new GUIStyle(GUI.skin.label);
-        labelStyle.fontSize = 35;  // ÉèÖÃ×ÖÌå´óĞ¡£¨µ¥Î»£ºÏñËØ£©
+        labelStyle.fontSize = 35;  // è®¾ç½®å­—ä½“å¤§å°ï¼ˆå•ä½ï¼šåƒç´ ï¼‰
 
-        GUI.Label(new Rect(10, 10, 600, 60), $"µ±Ç°ÆÕ¹¥Á¬»÷¶ÎÊı: {currentCombo}", labelStyle);
-        GUI.Label(new Rect(10, 60, 600, 60), $"ÆÕ¹¥Ê£ÓàÖØÖÃÊ±¼ä: {comboResetTime - (Time.time - lastAttackTime):F1}", labelStyle);
+        GUI.Label(new Rect(10, 10, 600, 60), $"å½“å‰æ™®æ”»è¿å‡»æ®µæ•°: {currentCombo}", labelStyle);
+        GUI.Label(new Rect(10, 60, 600, 60), $"æ™®æ”»å‰©ä½™é‡ç½®æ—¶é—´: {comboResetTime - (Time.time - lastAttackTime):F1}", labelStyle);
     }
 }
