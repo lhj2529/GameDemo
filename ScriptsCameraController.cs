@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float mouseSensitivity = 100f; // Êó±êÁéÃô¶È
-    public Transform playerBody;         // ½ÇÉ«ÉíÌå£¨ÓÃÓÚ×óÓÒĞı×ª£©
-    public Transform cameraTransform;    // Ïà»ú£¨ÓÃÓÚÉÏÏÂĞı×ª£©
+    public float mouseSensitivity = 100f; // é¼ æ ‡çµæ•åº¦
+    public Transform playerBody;         // è§’è‰²èº«ä½“ï¼ˆç”¨äºå·¦å³æ—‹è½¬ï¼‰
+    public Transform cameraTransform;    // ç›¸æœºï¼ˆç”¨äºä¸Šä¸‹æ—‹è½¬ï¼‰
 
     private float xRotation = 0f;
 
     void Start()
     {
-        // Ëø¶¨²¢Òş²ØÊó±ê
+        // é”å®šå¹¶éšè—é¼ æ ‡
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -23,18 +23,18 @@ public class CameraController : MonoBehaviour
             Cursor.visible = true;
         }
 
-        // »ñÈ¡Êó±êÊäÈë
+        // è·å–é¼ æ ‡è¾“å…¥
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        // ¿ØÖÆÉÏÏÂÊÓ½Ç£¨ÏŞÖÆ-90¡ã~90¡ã£©
+        // æ§åˆ¶ä¸Šä¸‹è§†è§’ï¼ˆé™åˆ¶-90Â°~90Â°ï¼‰
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        // Ó¦ÓÃÏà»úÉÏÏÂĞı×ª
+        // åº”ç”¨ç›¸æœºä¸Šä¸‹æ—‹è½¬
         cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
-        // Ó¦ÓÃ½ÇÉ«×óÓÒĞı×ª
+        // åº”ç”¨è§’è‰²å·¦å³æ—‹è½¬
         playerBody.Rotate(Vector3.up * mouseX);
     }
 }
