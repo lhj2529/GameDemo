@@ -7,9 +7,9 @@ public class FindNearestEnemy : MonoBehaviour
     [SerializeField] private GameEventChannel events;
 
     private Camera mainCamera;
-    public GameObject currentTarget=null; // µ±Ç°Ëø¶¨µÄÄ¿±ê
-    public float maxLockDistance = 100f; // ×î´óËø¶¨¾àÀë£¨3D¿Õ¼äÖĞµÄ¾àÀë£©
-    public LayerMask obstructionLayers; // ÕÚµ²¼ì²âµÄ²ã¼¶
+    public GameObject currentTarget=null; // å½“å‰é”å®šçš„ç›®æ ‡
+    public float maxLockDistance = 100f; // æœ€å¤§é”å®šè·ç¦»ï¼ˆ3Dç©ºé—´ä¸­çš„è·ç¦»ï¼‰
+    public LayerMask obstructionLayers; // é®æŒ¡æ£€æµ‹çš„å±‚çº§
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,7 @@ public class FindNearestEnemy : MonoBehaviour
         events.OnApplicationFind_Center.AddListener(FindClosestTarget);
     }
 
-    //¾Í½üË÷µĞ·½Ê½
+    //å°±è¿‘ç´¢æ•Œæ–¹å¼
     void FindEnemy_Nearest()
     {
 
@@ -27,7 +27,7 @@ public class FindNearestEnemy : MonoBehaviour
         if (enemies.Length > 0)
         {
             Transform nearest = null;
-            float minDistance = Mathf.Infinity;   //ÉèÖÃ³õÊ¼Ë÷µĞ·¶Î§£¨´Ë´¦ÎªÎŞÏŞÖÆ£©
+            float minDistance = Mathf.Infinity;   //è®¾ç½®åˆå§‹ç´¢æ•ŒèŒƒå›´ï¼ˆæ­¤å¤„ä¸ºæ— é™åˆ¶ï¼‰
 
             foreach (GameObject enemy in enemies)
             {
@@ -46,11 +46,11 @@ public class FindNearestEnemy : MonoBehaviour
         }
         else
         {
-            Debug.Log("Î´ÕÒµ½µĞÈË");
+            Debug.Log("æœªæ‰¾åˆ°æ•Œäºº");
         }
     }
 
-    //¸ù¾İ×¼ĞÇË÷µĞ·½Ê½
+    //æ ¹æ®å‡†æ˜Ÿç´¢æ•Œæ–¹å¼
     void FindClosestTarget()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Sword");
@@ -63,26 +63,26 @@ public class FindNearestEnemy : MonoBehaviour
         {
             foreach (GameObject enemy in enemies)
             {
-                // ¼ÆËãµĞÈËµ½ÉãÏñ»úµÄ3D¾àÀë
+                // è®¡ç®—æ•Œäººåˆ°æ‘„åƒæœºçš„3Dè·ç¦»
                 float distanceToCamera = Vector3.Distance(mainCamera.transform.position, enemy.transform.position);
                 if (distanceToCamera > maxLockDistance) continue;
 
-                // ×ª»»µ½ÆÁÄ»×ø±ê
+                // è½¬æ¢åˆ°å±å¹•åæ ‡
                 Vector3 screenPos = mainCamera.WorldToScreenPoint(enemy.transform.position);
 
-                // ¼ì²éÊÇ·ñÔÚÉãÏñ»úÇ°·½
+                // æ£€æŸ¥æ˜¯å¦åœ¨æ‘„åƒæœºå‰æ–¹
                 if (screenPos.z <= 0) continue;
 
-                //// ¼ì²éÊÇ·ñ¿É¼û£¨ÎŞÕÚµ²£©
+                //// æ£€æŸ¥æ˜¯å¦å¯è§ï¼ˆæ— é®æŒ¡ï¼‰
                 //if (IsTargetObstructed(enemy.transform)) continue;
 
-                // ¼ÆËãÆÁÄ»ÖĞĞÄ¾àÀë
+                // è®¡ç®—å±å¹•ä¸­å¿ƒè·ç¦»
                 float screenDistance = Vector2.Distance(
                     new Vector2(screenPos.x, screenPos.y),
                     new Vector2(screenCenter.x, screenCenter.y)
                 );
 
-                // ¸üĞÂ×î½üÄ¿±ê
+                // æ›´æ–°æœ€è¿‘ç›®æ ‡
                 if (screenDistance < minScreenDistance)
                 {
                     minScreenDistance = screenDistance;
@@ -92,9 +92,9 @@ public class FindNearestEnemy : MonoBehaviour
 
             currentTarget = closestEnemy;
             events.OnFindCenterEnemy?.Invoke(currentTarget);
-            // ´¥·¢Ëø¶¨ÊÂ¼ş£¬ÀıÈç¸üĞÂUI
+            // è§¦å‘é”å®šäº‹ä»¶ï¼Œä¾‹å¦‚æ›´æ–°UI
         }
         else
-            Debug.Log("Î´ÕÒµ½Ä¿±ê");
+            Debug.Log("æœªæ‰¾åˆ°ç›®æ ‡");
     }
 }
