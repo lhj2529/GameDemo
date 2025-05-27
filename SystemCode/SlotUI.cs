@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class SlotUI : MonoBehaviour
 {
-    public bool isOccupied=false; //�Ƿ�ռ�ݱ�ʶ
-    private string storedSpell = ""; //�洢��spell�ֶ�
+    public bool isOccupied=false; //是否被占据标识
+    private string storedSpell = ""; //存储的spell字段
     [SerializeField] private GameObject spellIcon;
    
     [SerializeField]private enum SlotNum
