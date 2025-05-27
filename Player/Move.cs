@@ -12,35 +12,35 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
 
     [Header("Jump Settings")]
-    public int maxJumps = 2;        // ×î´óÌøÔ¾´ÎÊı
-    private int currentJumps = 0;   // µ±Ç°ÌøÔ¾¼ÆÊı
-    private bool wasGrounded;       // ÉÏÒ»Ö¡µÄ½ÓµØ×´Ì¬
+    public int maxJumps = 2;        // æœ€å¤§è·³è·ƒæ¬¡æ•°
+    private int currentJumps = 0;   // å½“å‰è·³è·ƒè®¡æ•°
+    private bool wasGrounded;       // ä¸Šä¸€å¸§çš„æ¥åœ°çŠ¶æ€
 
     private Rigidbody2D rb;
     private bool isGrounded;
 
-    private Vector3 originalScale;      // ³õÊ¼Ëõ·ÅÖµ
+    private Vector3 originalScale;      // åˆå§‹ç¼©æ”¾å€¼
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        // ±£´æ³õÊ¼Ëõ·ÅÖµ
+        // ä¿å­˜åˆå§‹ç¼©æ”¾å€¼
         originalScale = transform.localScale;
     }
 
     void Update()
     {
-        // µØÃæ¼ì²â
+        // åœ°é¢æ£€æµ‹
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
 
-        // ĞÂÔö£ºÂäµØÊ±ÖØÖÃÌøÔ¾¼ÆÊı
+        // æ–°å¢ï¼šè½åœ°æ—¶é‡ç½®è·³è·ƒè®¡æ•°
         if (isGrounded && !wasGrounded)
         {
             currentJumps = 0;
         }
         wasGrounded = isGrounded;
 
-        // ĞŞ¸ÄºóµÄÌøÔ¾ÊäÈë¼ì²â
+        // ä¿®æ”¹åçš„è·³è·ƒè¾“å…¥æ£€æµ‹
         if (Input.GetKeyDown(KeyCode.Space) && currentJumps < maxJumps)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
@@ -50,21 +50,21 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Ë®Æ½ÒÆ¶¯
+        // æ°´å¹³ç§»åŠ¨
         float moveInput = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
 
-        // ĞÂÔö·½Ïò¿ØÖÆÂß¼­
+        // æ–°å¢æ–¹å‘æ§åˆ¶é€»è¾‘
         if ( moveInput != 0)
         {
-            // ¸ù¾İÊäÈë·½Ïò·­×ª½ÇÉ«
+            // æ ¹æ®è¾“å…¥æ–¹å‘ç¿»è½¬è§’è‰²
             Vector3 newScale = originalScale;
             newScale.x = Mathf.Sign(moveInput) * originalScale.x;
             transform.localScale = newScale;
         }
     }
 
-    // ¿ÉÊÓ»¯µØÃæ¼ì²â·¶Î§
+    // å¯è§†åŒ–åœ°é¢æ£€æµ‹èŒƒå›´
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
