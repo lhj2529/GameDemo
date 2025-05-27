@@ -6,22 +6,22 @@ using UnityEngine.Events;
 [CreateAssetMenu(menuName ="Events/Game Event Channel")]
 public class GameEventChannel : ScriptableObject
 {
-    //´«µİ¡°Á¬»÷Êı¡±ÊÂ¼ş
+    //ä¼ é€’â€œè¿å‡»æ•°â€äº‹ä»¶
     public UnityEvent<float> OnPassComboStage = new UnityEvent<float>();
 
-    //ÖØÖÃ¡°Á¬»÷Êı¡±ÊÂ¼ş
+    //é‡ç½®â€œè¿å‡»æ•°â€äº‹ä»¶
     public UnityEvent OnResetCombo = new UnityEvent();
 
-    //¹¥»÷ÃüÖĞÊÂ¼ş
+    //æ”»å‡»å‘½ä¸­äº‹ä»¶
     public UnityEvent OnAttackHits = new UnityEvent();
 
-    //ÃüÖĞ¼ì²âÊÂ¼ş
-    public UnityEvent<float> OnAttackColliderCheck = new UnityEvent<float>(); //´«µİ²ÎÊıÓÃÒÔÑ¡Ôñ¿ªÆôÅö×²Ïä
+    //å‘½ä¸­æ£€æµ‹äº‹ä»¶
+    public UnityEvent<float> OnAttackColliderCheck = new UnityEvent<float>(); //ä¼ é€’å‚æ•°ç”¨ä»¥é€‰æ‹©å¼€å¯ç¢°æ’ç®±
 
-    //Ë÷µĞÊÂ¼ş(¾àÀë½ÇÉ«×î½ü)
+    //ç´¢æ•Œäº‹ä»¶(è·ç¦»è§’è‰²æœ€è¿‘)
     public UnityEvent OnApplicationFind_Nearest=new UnityEvent();
     public UnityEvent<Transform> OnFindNearestEnemy=new UnityEvent<Transform>();
-    //Ë÷µĞÊÂ¼ş(¾àÀëÆÁÄ»ÖĞĞÄ×î½ü)
+    //ç´¢æ•Œäº‹ä»¶(è·ç¦»å±å¹•ä¸­å¿ƒæœ€è¿‘)
     public UnityEvent OnApplicationFind_Center = new UnityEvent();
     public UnityEvent<GameObject> OnFindCenterEnemy = new UnityEvent<GameObject>();
 }
