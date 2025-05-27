@@ -11,15 +11,15 @@ public class BossController : MonoBehaviour
 
 
     [Header("References")]
-    public Transform player;  //Íæ¼ÒÓÎÏ·¶ÔÏó
-    public Animator animator;  //°ó¶¨µÄ¶¯»­Æ÷×é¼ş
-    public Slider healthBar;  //ÑªÌõUI
+    public Transform player;  //ç©å®¶æ¸¸æˆå¯¹è±¡
+    public Animator animator;  //ç»‘å®šçš„åŠ¨ç”»å™¨ç»„ä»¶
+    public Slider healthBar;  //è¡€æ¡UI
 
     [SerializeField] private GameEventChannel events;
-    //private NavMeshAgent agent;  //µ¼º½Íø¸ñ´úÀí
-    private int currentHealth;  //µ±Ç°ÉúÃüÖµ
-    private float attackCooldown = 10f;  //¹¥»÷ÀäÈ´Ê±¼ä
-    private float lastAttackTime;  //×î½üÒ»´Î¹¥»÷Ê±¼ä
+    //private NavMeshAgent agent;  //å¯¼èˆªç½‘æ ¼ä»£ç†
+    private int currentHealth;  //å½“å‰ç”Ÿå‘½å€¼
+    private float attackCooldown = 10f;  //æ”»å‡»å†·å´æ—¶é—´
+    private float lastAttackTime;  //æœ€è¿‘ä¸€æ¬¡æ”»å‡»æ—¶é—´
 
     void Start()
     {
@@ -54,12 +54,12 @@ public class BossController : MonoBehaviour
                 events.OnBossChaseStart?.Invoke(player);
 
 
-                if (distanceToPlayer <= bossData.attackRange && Time.time > lastAttackTime + attackCooldown)  //Ìõ¼ş£º½øÈë¹¥»÷·¶Î§ && ¹¥»÷¾ÍĞ÷
+                if (distanceToPlayer <= bossData.attackRange && Time.time > lastAttackTime + attackCooldown)  //æ¡ä»¶ï¼šè¿›å…¥æ”»å‡»èŒƒå›´ && æ”»å‡»å°±ç»ª
                 {
                     events.OnBossChaseStop?.Invoke(player);
                     ChangeState(BossState.Attack); 
                 }
-                else if (Time.time < lastAttackTime + attackCooldown && distanceToPlayer <= bossData.attackRange) //Ìõ¼ş£º½øÈë¹¥»÷·¶Î§ && ¹¥»÷Î´¾ÍĞ÷
+                else if (Time.time < lastAttackTime + attackCooldown && distanceToPlayer <= bossData.attackRange) //æ¡ä»¶ï¼šè¿›å…¥æ”»å‡»èŒƒå›´ && æ”»å‡»æœªå°±ç»ª
                 {
                     events.OnBossChaseStop?.Invoke(player);
                     ChangeState(BossState.Away); 
@@ -92,7 +92,7 @@ public class BossController : MonoBehaviour
             case BossState.Patrol:
                 events.OnBossPatrolStart?.Invoke(player);
 
-                if (Time.time > lastAttackTime + attackCooldown)  //Ìõ¼ş£º¹¥»÷¾ÍĞ÷
+                if (Time.time > lastAttackTime + attackCooldown)  //æ¡ä»¶ï¼šæ”»å‡»å°±ç»ª
                 {
                     events.OnBossPatrolStop?.Invoke(player);
                     ChangeState(BossState.Chase);
@@ -114,8 +114,8 @@ public class BossController : MonoBehaviour
         
         animator.SetBool("isAway", currentState == BossState.Away);
         animator.SetBool("isPatrol", currentState == BossState.Patrol);
-        //animator.SetTrigger("HitTrigger"); // ÊÜ»÷Ê±µ÷ÓÃ
-        //animator.SetTrigger("DieTrigger"); // ËÀÍöÊ±µ÷ÓÃ
+        //animator.SetTrigger("HitTrigger"); // å—å‡»æ—¶è°ƒç”¨
+        //animator.SetTrigger("DieTrigger"); // æ­»äº¡æ—¶è°ƒç”¨
     }
 
     void FaceTarget()
@@ -145,7 +145,7 @@ public class BossController : MonoBehaviour
         enabled = false;
     }
 
-    // ÔÚ¹¥»÷¶¯»­¹Ø¼üÖ¡µ÷ÓÃ
+    // åœ¨æ”»å‡»åŠ¨ç”»å…³é”®å¸§è°ƒç”¨
     void AttackPlayer()
     {
         if (Vector3.Distance(transform.position, player.position) <= bossData.attackRange)
