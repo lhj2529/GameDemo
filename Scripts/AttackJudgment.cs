@@ -8,24 +8,24 @@ public class AttackJudgment : MonoBehaviour
 
     [SerializeField] private GameEventChannel events;
 
-    //¹¥»÷Åö×²Ïä
+    //æ”»å‡»ç¢°æ’ç®±
     [SerializeField] private GameObject attackCollider;
     private float attackType;
-    private Vector3[] attack_Size =new Vector3[]    // Åö×²Ïä³ß´çÊı×é
+    private Vector3[] attack_Size =new Vector3[]    // ç¢°æ’ç®±å°ºå¯¸æ•°ç»„
     {
-        //ÆÕÍ¨¹¥»÷ËÄ¶ÎµÄÅö×²Ïä³ß´ç
+        //æ™®é€šæ”»å‡»å››æ®µçš„ç¢°æ’ç®±å°ºå¯¸
         new Vector3(1.3845f, 0.9134f, 0.9223f), 
         new Vector3(1.1631f, 0.9134f, 0.9223f),
         new Vector3(1.6687f, 0.9134f, 1.4948f),
         new Vector3(2.1548f, 0.9134f, 1.7252f),
 
-        //½×¶ÎÒ»¼¼ÄÜÅö×²Ïä³ß´ç
+        //é˜¶æ®µä¸€æŠ€èƒ½ç¢°æ’ç®±å°ºå¯¸
         new Vector3(1.9730f, 2.0031f, 1.9608f),
 
-        //½×¶Î¶ş¼¼ÄÜµÄÁ½¶ÎÅö×²Ïä³ß´ç
+        //é˜¶æ®µäºŒæŠ€èƒ½çš„ä¸¤æ®µç¢°æ’ç®±å°ºå¯¸
         new Vector3(2.2955f, 1.2575f, 2.6444f),
 
-        //½×¶ÎÈı¼¼ÄÜµÄÅö×²Ïä
+        //é˜¶æ®µä¸‰æŠ€èƒ½çš„ç¢°æ’ç®±
         new Vector3(1.9730f, 1.3176f, 1.9608f),
 
     }; 
@@ -33,7 +33,7 @@ public class AttackJudgment : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        attackCollider.GetComponent<BoxCollider>().enabled = false;   //³õÊ¼Åö×²¹Ø±Õ
+        attackCollider.GetComponent<BoxCollider>().enabled = false;   //åˆå§‹ç¢°æ’å…³é—­
         events.OnAttackColliderCheck.AddListener(ReceiveCollider);
     }
 
@@ -61,7 +61,7 @@ public class AttackJudgment : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("¹¥»÷µ½ÁËµĞÈË");
+            Debug.Log("æ”»å‡»åˆ°äº†æ•Œäºº");
             events.OnAttackHits?.Invoke();
         }
     }
