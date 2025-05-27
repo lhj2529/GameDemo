@@ -26,7 +26,7 @@ public class Attack : MonoBehaviour
 
     private void Awake()
     {
-        events.OnBossAttack.AddListener(AttackStart);  //ÉèÖÃ¼àÌıÊÂ¼ş
+        events.OnBossAttack.AddListener(AttackStart);  //è®¾ç½®ç›‘å¬äº‹ä»¶
         events.OnBossAttack.AddListener(FaceTarget);
 
         anim = this.GetComponent<Animator>();
@@ -43,10 +43,10 @@ public class Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ¼ÆËãË®Æ½·½Ïò²î
+        // è®¡ç®—æ°´å¹³æ–¹å‘å·®
         float xDirection = target.position.x - transform.position.x;
 
-        // ¸ù¾İ·½Ïò·­×ªSprite
+        // æ ¹æ®æ–¹å‘ç¿»è½¬Sprite
         if (xDirection > 0)
         {
             attackOffset = new Vector2(0.2f, 0);
@@ -64,7 +64,7 @@ public class Attack : MonoBehaviour
         events.OnBossAttack.RemoveListener(FaceTarget);
     }
 
-    // ³õÊ¼»¯¹¥»÷Åö×²Ìå²ÎÊı
+    // åˆå§‹åŒ–æ”»å‡»ç¢°æ’ä½“å‚æ•°
     private void ConfigureAttackCollider()
     {
         attackCollider.size = attackSize;
@@ -79,7 +79,7 @@ public class Attack : MonoBehaviour
 
     private void AttackStart(Transform player)
     {
-        // ´¥·¢¹¥»÷¶¯»­
+        // è§¦å‘æ”»å‡»åŠ¨ç”»
         anim.SetTrigger("Attack");
 
         target = player;
@@ -91,9 +91,9 @@ public class Attack : MonoBehaviour
 
         if (attackCollider.enabled == true)
         { 
-            // »ñÈ¡Åö×²ÌåÊµ¼ÊÎ»ÖÃºÍĞı×ª
+            // è·å–ç¢°æ’ä½“å®é™…ä½ç½®å’Œæ—‹è½¬
             Vector2 position = attackPoint.TransformPoint(attackCollider.offset);
-            // ¼ì²âµĞÈË
+            // æ£€æµ‹æ•Œäºº
             Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(
                 position,
                 attackSize,
@@ -101,19 +101,19 @@ public class Attack : MonoBehaviour
                 enemyLayer
             );
 
-            // ¶ÔÃ¿¸öµĞÈËÔì³ÉÉËº¦
+            // å¯¹æ¯ä¸ªæ•Œäººé€ æˆä¼¤å®³
             foreach (Collider2D enemy in hitEnemies)
             {
                 if (enemy.CompareTag("Player"))
                 {
                     //enemy.GetComponent<EnemyHealth>().TakeDamage(damage);
-                    Debug.Log("¹¥»÷µ½ÁËÍæ¼Ò");
+                    Debug.Log("æ”»å‡»åˆ°äº†ç©å®¶");
                 }
             }
         }
     }
 
-    // ¶¯»­ÊÂ¼şµ÷ÓÃ·½·¨£¨ÔÚ¹¥»÷¶¯»­¹Ø¼üÖ¡Ìí¼ÓÊÂ¼ş£©
+    // åŠ¨ç”»äº‹ä»¶è°ƒç”¨æ–¹æ³•ï¼ˆåœ¨æ”»å‡»åŠ¨ç”»å…³é”®å¸§æ·»åŠ äº‹ä»¶ï¼‰
     public void EnableAttackCollider() 
     { 
         
