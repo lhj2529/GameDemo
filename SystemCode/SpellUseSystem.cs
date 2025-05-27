@@ -21,7 +21,7 @@ public class SpellUseSystem : MonoBehaviour
 
     private void SpellUse(string spell)
     {
-        GameObject spellObj = GetComponent<SpellStoreSystem>().GetPrefab(spell);//获取spell对应的预制体
+        GameObject spellObj = GetComponent<SpellStoreSystem>().GetPrefab(spell);//禄帽脠隆spell露脭脫娄碌脛脭陇脰脝脤氓
         Instantiate(spellObj, player.transform.position, Quaternion.identity);
     }
 }
