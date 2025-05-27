@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class Dodge : MonoBehaviour
 {
-    // ¶¯»­²ÎÊı³£Á¿
+    // åŠ¨ç”»å‚æ•°å¸¸é‡
     private const string DODGE_DIR_PARAM = "DodgeDirection";
     private const string DODGE_TRIGGER = "Dodge";
 
-    [SerializeField] private float cooldownTime = 1f;   //ÉÁ±ÜÀäÈ´Ê±¼ä
-    [SerializeField] private float directionThreshold = 0.7f;   //ÉÁ±ÜãĞÖµ
+    [SerializeField] private float cooldownTime = 1f;   //é—ªé¿å†·å´æ—¶é—´
+    [SerializeField] private float directionThreshold = 0.7f;   //é—ªé¿é˜ˆå€¼
 
-    [SerializeField] private Animator characterAnimator;    //»ñÈ¡¶¯»­¿ØÖÆÆ÷   
+    [SerializeField] private Animator characterAnimator;    //è·å–åŠ¨ç”»æ§åˆ¶å™¨   
 
-    private bool isDodging=false;   //ÊÇ·ñÔÚÖ´ĞĞÉÁ±Ü
-    private float cooldownTimer = 0f;   //ÀäÈ´¼ÆÊ±Æ÷
+    private bool isDodging=false;   //æ˜¯å¦åœ¨æ‰§è¡Œé—ªé¿
+    private float cooldownTimer = 0f;   //å†·å´è®¡æ—¶å™¨
     private Vector3 movementInput;
 
-    //·½ÏòÅĞ¶Ï
+    //æ–¹å‘åˆ¤æ–­
     private enum DodgeDirection { F,B,L,R}
 
     // Start is called before the first frame update
@@ -42,7 +42,7 @@ public class Dodge : MonoBehaviour
         }
     }
 
-    void UpdateCooldown()   //ÀäÈ´Ê±¼äÖØÖÃ
+    void UpdateCooldown()   //å†·å´æ—¶é—´é‡ç½®
     {
         if (cooldownTimer > 0)
         {
@@ -50,7 +50,7 @@ public class Dodge : MonoBehaviour
         }
     }
 
-    void GetMovementInput()  //»ñÈ¡ÊäÈë
+    void GetMovementInput()  //è·å–è¾“å…¥
     {
         movementInput = new Vector3(
             Input.GetAxisRaw("Horizontal"),
@@ -59,14 +59,14 @@ public class Dodge : MonoBehaviour
             ).normalized;
     }
 
-    bool CanDodge() //ÉÁ±ÜÌõ¼şÅĞ¶Ï
+    bool CanDodge() //é—ªé¿æ¡ä»¶åˆ¤æ–­
     {
         return Input.GetKeyDown(KeyCode.LeftShift) &&
             !isDodging &&
             cooldownTimer <= 0;
     }
 
-    private DodgeDirection GetDodgeDirection()     //¼ÆËãÉÁ±Ü·½Ïò
+    private DodgeDirection GetDodgeDirection()     //è®¡ç®—é—ªé¿æ–¹å‘
     {
         Vector3 worldDirection = movementInput != Vector3.zero ?
             transform.TransformDirection(movementInput) :
@@ -78,7 +78,7 @@ public class Dodge : MonoBehaviour
 
     private DodgeDirection DetermineDirection(Vector3 localDir)
     {
-        //·½ÏòÅĞ¶ÏÂß¼­
+        //æ–¹å‘åˆ¤æ–­é€»è¾‘
         if(Mathf.Abs(localDir.z)>Mathf.Abs(localDir.x))
         {
             return localDir.z > directionThreshold ?
@@ -93,12 +93,12 @@ public class Dodge : MonoBehaviour
         }
     }
 
-    void PerformDodge()  //ÉÁ±Ü
+    void PerformDodge()  //é—ªé¿
     {
         InitializeDodge();
         var direction = GetDodgeDirection();
 
-        //´¥·¢¶¯»­
+        //è§¦å‘åŠ¨ç”»
         TriggerDodgeAnimation(direction);
 
         FinalizeDodge();
@@ -123,13 +123,13 @@ public class Dodge : MonoBehaviour
         }
     }
 
-    void InitializeDodge()  //ÉÁ±Ü¹¦ÄÜ³õÊ¼»¯
+    void InitializeDodge()  //é—ªé¿åŠŸèƒ½åˆå§‹åŒ–
     {
         isDodging = true;
         cooldownTimer = cooldownTime;
     }
 
-    void FinalizeDodge()    //ÉÁ±Ü½áÊø
+    void FinalizeDodge()    //é—ªé¿ç»“æŸ
     {
         isDodging = false;
     }
