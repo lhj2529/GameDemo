@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Skill_01 : MonoBehaviour
 {
-    [SerializeField] private float coolDownDuration = 5f;   //¼¼ÄÜÀäÈ´Ê±¼ä
+    [SerializeField] private float coolDownDuration = 5f;   //æŠ€èƒ½å†·å´æ—¶é—´
 
 
-    private bool isCoolingDown=false;   //¼¼ÄÜÀäÈ´±êÖ¾
-    private float cooldownTimer = 0f;    //ÀäÈ´¼ÆÊ±Æ÷
+    private bool isCoolingDown=false;   //æŠ€èƒ½å†·å´æ ‡å¿—
+    private float cooldownTimer = 0f;    //å†·å´è®¡æ—¶å™¨
     private float comboStage = 1f;
     private Transform enemyPos = null;
 
@@ -20,11 +20,11 @@ public class Skill_01 : MonoBehaviour
 
     [SerializeField] private GameEventChannel events;
 
-    //Èı½×¶Î¼¼ÄÜĞ­³ÌËùÓÃµÄÊôĞÔ
-    public float dashSpeed = 10f;       // ³å´ÌËÙ¶È£¨Ã×/Ãë£©
-    public float stoppingDistance = 0.1f; // Í£Ö¹¾àÀëãĞÖµ
-    public float gravity = -9.81f;      // ÖØÁ¦¼ÓËÙ¶È
-    private bool isDashing = false;     // ÊÇ·ñÕıÔÚ³å´Ì
+    //ä¸‰é˜¶æ®µæŠ€èƒ½åç¨‹æ‰€ç”¨çš„å±æ€§
+    public float dashSpeed = 10f;       // å†²åˆºé€Ÿåº¦ï¼ˆç±³/ç§’ï¼‰
+    public float stoppingDistance = 0.1f; // åœæ­¢è·ç¦»é˜ˆå€¼
+    public float gravity = -9.81f;      // é‡åŠ›åŠ é€Ÿåº¦
+    private bool isDashing = false;     // æ˜¯å¦æ­£åœ¨å†²åˆº
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +38,7 @@ public class Skill_01 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //¸üĞÂÀäÈ´¼ÆÊ±Æ÷
+        //æ›´æ–°å†·å´è®¡æ—¶å™¨
         if (isCoolingDown)
         {
             cooldownTimer -= Time.deltaTime;
@@ -96,7 +96,7 @@ public class Skill_01 : MonoBehaviour
         Vector3 teleportPosition = enemyPos.position + direction * 2f;
         teleportPosition.y = playerPos.position.y;
 
-        //Óë½ÇÉ«¿ØÖÆÆ÷²úÉú³åÍ»£¬ÏÈ½ûÓÃÆä£¬ÔÙÖ´ĞĞË²ÒÆ£¬ÔÙÆôÓÃ
+        //ä¸è§’è‰²æ§åˆ¶å™¨äº§ç”Ÿå†²çªï¼Œå…ˆç¦ç”¨å…¶ï¼Œå†æ‰§è¡Œç¬ç§»ï¼Œå†å¯ç”¨
         cc.enabled = false;
         playerPos.position = teleportPosition;
         cc.enabled = true;
@@ -115,22 +115,22 @@ public class Skill_01 : MonoBehaviour
 
         for (int i = 0; i < 6; i++)
         {
-            // ¼ÆËãµ±Ç°½Ç¶È£¨¶ÈÊı£©²¢×ª»»Îª»¡¶È
+            // è®¡ç®—å½“å‰è§’åº¦ï¼ˆåº¦æ•°ï¼‰å¹¶è½¬æ¢ä¸ºå¼§åº¦
             float angleDegrees = 90f + 60f * i;
             float radians = Mathf.Deg2Rad * angleDegrees;
 
-            // ¼ÆËãÏà¶ÔÍæ¼ÒµÄ×ø±ê
+            // è®¡ç®—ç›¸å¯¹ç©å®¶çš„åæ ‡
             float x = Mathf.Cos(radians) * 10f;
             float z = Mathf.Sin(radians) * 10f;
 
-            // È·¶¨Éú³ÉÎ»ÖÃ£¨±£³ÖÓëÍæ¼ÒÏàÍ¬µÄYÖá¸ß¶È£©
+            // ç¡®å®šç”Ÿæˆä½ç½®ï¼ˆä¿æŒä¸ç©å®¶ç›¸åŒçš„Yè½´é«˜åº¦ï¼‰
             Vector3 spawnPosition = new Vector3(
                 playerPos.position.x + x,
                 playerPos.position.y,
                 playerPos.position.z + z
             );
 
-            // Éú³ÉÎïÌå²¢±£³ÖÄ¬ÈÏĞı×ª
+            // ç”Ÿæˆç‰©ä½“å¹¶ä¿æŒé»˜è®¤æ—‹è½¬
             Instantiate(Skill_03_Sword_Prefab, spawnPosition, Skill_03_Sword_Prefab.transform.rotation);
         }
 
@@ -138,7 +138,7 @@ public class Skill_01 : MonoBehaviour
 
     }
 
-    // Ğ­³Ì´¦Àí³å´ÌÂß¼­
+    // åç¨‹å¤„ç†å†²åˆºé€»è¾‘
     private IEnumerator DashToPositionCoroutine()
     {
         isDashing = true;
@@ -156,7 +156,7 @@ public class Skill_01 : MonoBehaviour
             if (Swords.Length <= 0)
             {
                 events.OnResetCombo?.Invoke();
-                Debug.Log("chongzhiÇëÇó");
+                Debug.Log("chongzhiè¯·æ±‚");
                 break;
             }
             else
@@ -173,37 +173,37 @@ public class Skill_01 : MonoBehaviour
 
                     while (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
                     {
-                        // ¼ÆËãË®Æ½ÒÆ¶¯·½Ïò
+                        // è®¡ç®—æ°´å¹³ç§»åŠ¨æ–¹å‘
                         Vector3 horizontalDirection = (targetPosition - transform.position).normalized;
-                        horizontalDirection.y = 0; // ºöÂÔ´¹Ö±·ÖÁ¿
+                        horizontalDirection.y = 0; // å¿½ç•¥å‚ç›´åˆ†é‡
 
-                        // ¼ÆËãË®Æ½Î»ÒÆ
+                        // è®¡ç®—æ°´å¹³ä½ç§»
                         Vector3 horizontalMove = horizontalDirection * dashSpeed * Time.deltaTime;
 
-                        // ´¦ÀíÖØÁ¦
+                        // å¤„ç†é‡åŠ›
                         if (!cc.isGrounded)
                         {
                             verticalVelocity += gravity * Time.deltaTime;
                         }
                         else
                         {
-                            verticalVelocity = -0.1f; // ÇáÎ¢ÏòÏÂËÙ¶È·ÀÖ¹Æ¯¸¡
+                            verticalVelocity = -0.1f; // è½»å¾®å‘ä¸‹é€Ÿåº¦é˜²æ­¢æ¼‚æµ®
                         }
 
-                        // ºÏ²¢´¹Ö±Î»ÒÆ
+                        // åˆå¹¶å‚ç›´ä½ç§»
                         Vector3 verticalMove = new Vector3(0, verticalVelocity * Time.deltaTime, 0);
 
-                        // ÒÆ¶¯½ÇÉ«
+                        // ç§»åŠ¨è§’è‰²
                         cc.Move(horizontalMove + verticalMove);
 
-                        yield return null; // µÈ´ıÏÂÒ»Ö¡
+                        yield return null; // ç­‰å¾…ä¸‹ä¸€å¸§
                     }
 
 
-                    // ³å´Ì½áÊøºó£¬¾«×¼¶ÔÆëÄ¿±êÎ»ÖÃ
+                    // å†²åˆºç»“æŸåï¼Œç²¾å‡†å¯¹é½ç›®æ ‡ä½ç½®
                     transform.position = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
                 }
-                yield return null; // µÈ´ıÏÂÒ»Ö¡
+                yield return null; // ç­‰å¾…ä¸‹ä¸€å¸§
             }
         }
 
