@@ -9,9 +9,9 @@ public class Chase : MonoBehaviour
 
     [SerializeField] private BossData bossData;
 
-    [SerializeField] Rigidbody2D rb;             // BossµÄ¸ÕÌå×é¼þ
+    [SerializeField] Rigidbody2D rb;             // Bossçš„åˆšä½“ç»„ä»¶
     private Transform target;
-    [SerializeField] SpriteRenderer spriteRenderer; // ¾«ÁéäÖÈ¾Æ÷
+    [SerializeField] SpriteRenderer spriteRenderer; // ç²¾çµæ¸²æŸ“å™¨
     [SerializeField] private Transform attackPoint;
 
 
@@ -45,14 +45,14 @@ public class Chase : MonoBehaviour
     void StartChasing(Transform player)
     {
         target = player;
-        // ¿ÉÒÔÔÚ´Ë´¦´¥·¢×·»÷ÌØÐ§»òÉùÒô
+        // å¯ä»¥åœ¨æ­¤å¤„è§¦å‘è¿½å‡»ç‰¹æ•ˆæˆ–å£°éŸ³
     }
 
     void StopChasing(Transform player)
     {
         target = null;
         rb.velocity = Vector2.zero;
-        // ¿ÉÒÔÔÚ´Ë´¦´¥·¢Í£Ö¹×·»÷¶¯»­
+        // å¯ä»¥åœ¨æ­¤å¤„è§¦å‘åœæ­¢è¿½å‡»åŠ¨ç”»
     }
 
     void MoveTowardsTarget()
@@ -65,19 +65,19 @@ public class Chase : MonoBehaviour
     {
         if (target == null) return;
 
-        // ¼ÆËãË®Æ½·½Ïò²î
+        // è®¡ç®—æ°´å¹³æ–¹å‘å·®
         float xDirection = target.position.x - transform.position.x;
 
-        // ¸ù¾Ý·½Ïò·­×ªSprite
+        // æ ¹æ®æ–¹å‘ç¿»è½¬Sprite
         if (xDirection > 0)
         {
-            spriteRenderer.flipX = true; // Íæ¼ÒÔÚzuo²à
+            spriteRenderer.flipX = true; // çŽ©å®¶åœ¨zuoä¾§
 
             attackPoint.localPosition=new Vector3((float)0.2, 0, 0) ;
         }
         else if (xDirection < 0)
         {
-            spriteRenderer.flipX = false;  // Íæ¼ÒÔÚyou²à
+            spriteRenderer.flipX = false;  // çŽ©å®¶åœ¨youä¾§
 
             attackPoint.localPosition = new Vector3((float)-0.2, 0, 0);
         }
