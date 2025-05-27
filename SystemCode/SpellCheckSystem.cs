@@ -10,24 +10,24 @@ public class SpellCheckSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        events.OnSpellInput.AddListener(SpellCheck);//¼àÌıÊäÈëÊÂ¼ş
+        events.OnSpellInput.AddListener(SpellCheck);//ç›‘å¬è¾“å…¥äº‹ä»¶
     }
 
     private void SpellCheck(string input)
     {
-        input = input.ToUpper().Trim();//×ªÎª´óĞ´²¢È¥³ı×Ö·û´®µÄ¿Õ¸ñ
-        bool isRight= GetComponent<SpellStoreSystem>().SearchInDictionary(input);//ÔÚ×ÖµäÖĞ²éÕÒ¡°input¡±ÊÇ·ñÔÚÖ¸Áî×ÖµäÖĞ
+        input = input.ToUpper().Trim();//è½¬ä¸ºå¤§å†™å¹¶å»é™¤å­—ç¬¦ä¸²çš„ç©ºæ ¼
+        bool isRight= GetComponent<SpellStoreSystem>().SearchInDictionary(input);//åœ¨å­—å…¸ä¸­æŸ¥æ‰¾â€œinputâ€æ˜¯å¦åœ¨æŒ‡ä»¤å­—å…¸ä¸­
 
         if (isRight)
         {
             GameObject instance = Instantiate(effect_inputRight, GameObject.FindGameObjectWithTag("Player").transform.position, Quaternion.identity);
-            // ÉèÖÃËõ·Å£¨ÀıÈç·Å´óµ½ 2 ±¶£©
+            // è®¾ç½®ç¼©æ”¾ï¼ˆä¾‹å¦‚æ”¾å¤§åˆ° 2 å€ï¼‰
             instance.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             events.OnStoreSpell?.Invoke(input);
         }
         else
         {
-            Debug.Log("ÊäÈëÎŞĞ§");
+            Debug.Log("è¾“å…¥æ— æ•ˆ");
         }
     }
 }
