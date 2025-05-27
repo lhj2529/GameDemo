@@ -22,21 +22,21 @@ public class SpellInputSystem : MonoBehaviour
 
     void Update()
     {
-        // °´Tab¼üÇĞ»»½¹µã
+        // æŒ‰Tabé”®åˆ‡æ¢ç„¦ç‚¹
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (inputField.isFocused)
             {
-                // ÊÍ·ÅÊäÈë¿ò½¹µã
+                // é‡Šæ”¾è¾“å…¥æ¡†ç„¦ç‚¹
                 inputField.DeactivateInputField();
-                // Çå³ıEventSystemµ±Ç°Ñ¡ÖĞ¶ÔÏó
+                // æ¸…é™¤EventSystemå½“å‰é€‰ä¸­å¯¹è±¡
                 EventSystem.current.SetSelectedGameObject(null);
             }
             else
             {
-                // ÊµÀı»¯Ô¤ÖÆÌå
+                // å®ä¾‹åŒ–é¢„åˆ¶ä½“
                 instance = Instantiate(effect_inputting, GameObject.FindGameObjectWithTag("Player").transform.position, Quaternion.identity);
-                // ÉèÖÃËõ·Å£¨ÀıÈç·Å´óµ½ 2 ±¶£©
+                // è®¾ç½®ç¼©æ”¾ï¼ˆä¾‹å¦‚æ”¾å¤§åˆ° 2 å€ï¼‰
                 instance.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 
                 inputField.ActivateInputField();
@@ -51,15 +51,15 @@ public class SpellInputSystem : MonoBehaviour
 
     private void SubmitInputString(string currentInput)
     {
-        events.OnSpellInput?.Invoke(currentInput);//´¥·¢Ö¸ÁîÌá½»ÊÂ¼ş
+        events.OnSpellInput?.Invoke(currentInput);//è§¦å‘æŒ‡ä»¤æäº¤äº‹ä»¶
 
         Destroy(instance, 0.5f);
 
-        // Çå¿ÕÊäÈë¿ò
+        // æ¸…ç©ºè¾“å…¥æ¡†
         inputField.text = "";
-        // ÊÍ·ÅÊäÈë¿ò½¹µã
+        // é‡Šæ”¾è¾“å…¥æ¡†ç„¦ç‚¹
         inputField.DeactivateInputField();
-        // Çå³ıEventSystemµ±Ç°Ñ¡ÖĞ¶ÔÏó
+        // æ¸…é™¤EventSystemå½“å‰é€‰ä¸­å¯¹è±¡
         EventSystem.current.SetSelectedGameObject(null);
     }
 }
