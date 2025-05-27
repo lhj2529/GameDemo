@@ -2,20 +2,20 @@ using UnityEngine;
 
 public class TimeSlowSystem : MonoBehaviour
 {
-    [SerializeField] private float slowdownFactor = 0.5f; // Ê±¼äËõ·ÅÒò×Ó
+    [SerializeField] private float slowdownFactor = 0.5f; // æ—¶é—´ç¼©æ”¾å› å­
     private float originalFixedDeltaTime;
-    [SerializeField] private bool isSlowMotion = false;     // µ±Ç°×´Ì¬
+    [SerializeField] private bool isSlowMotion = false;     // å½“å‰çŠ¶æ€
     [SerializeField] private GameObject effect_timeSlow;
 
 
     void Start()
     {
-        originalFixedDeltaTime = Time.fixedDeltaTime; // ±£´æ³õÊ¼FixedDeltaTime
+        originalFixedDeltaTime = Time.fixedDeltaTime; // ä¿å­˜åˆå§‹FixedDeltaTime
     }
 
     void Update()
     {
-        // ¼ì²âK¼ü°´ÏÂ
+        // æ£€æµ‹Ké”®æŒ‰ä¸‹
         if (Input.GetKeyDown(KeyCode.K) )
         {
 
@@ -28,16 +28,16 @@ public class TimeSlowSystem : MonoBehaviour
 
         if (isSlowMotion)
         {
-            // ÊµÀı»¯Ô¤ÖÆÌå
+            // å®ä¾‹åŒ–é¢„åˆ¶ä½“
             Instantiate(effect_timeSlow, transform.position, Quaternion.identity);
 
-            // ½øÈëÂı¶¯×÷
+            // è¿›å…¥æ…¢åŠ¨ä½œ
             Time.timeScale = slowdownFactor;
             Time.fixedDeltaTime = originalFixedDeltaTime * slowdownFactor;
         }
         else
         {
-            // »Ö¸´Õı³£
+            // æ¢å¤æ­£å¸¸
             Time.timeScale = 1f;
             Time.fixedDeltaTime = originalFixedDeltaTime;
         }
