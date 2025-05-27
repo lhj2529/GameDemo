@@ -4,9 +4,9 @@ using UnityEngine;
 public class Teleportation : MonoBehaviour
 {
     [Header("Teleport Settings")]
-    [SerializeField] private float teleportDistance = 3f;      // »ù´¡Ë²ÒÆ¾àÀë
-    [SerializeField] private float wallDetectionOffset = 0.1f; // Ç½Ìå¼ì²âÆ«ÒÆÁ¿
-    [SerializeField] private LayerMask groundLayer;           // µØÃæ²ã¼¶
+    [SerializeField] private float teleportDistance = 3f;      // åŸºç¡€ç¬ç§»è·ç¦»
+    [SerializeField] private float wallDetectionOffset = 0.1f; // å¢™ä½“æ£€æµ‹åç§»é‡
+    [SerializeField] private LayerMask groundLayer;           // åœ°é¢å±‚çº§
 
     [SerializeField] private GameObject teleportationEffect;
 
@@ -65,7 +65,7 @@ public class Teleportation : MonoBehaviour
     {
         if (hit.collider != null && hit.collider.CompareTag("Ground"))
         {
-            // ¼ÆËã°²È«¾àÀë£ºÅö×²¾àÀë - Åö×²ÌåÅòÕÍ - °²È«Æ«ÒÆ
+            // è®¡ç®—å®‰å…¨è·ç¦»ï¼šç¢°æ’è·ç¦» - ç¢°æ’ä½“è†¨èƒ€ - å®‰å…¨åç§»
             return Mathf.Max(0, hit.distance - wallDetectionOffset);
         }
         return teleportDistance;
@@ -78,7 +78,7 @@ public class Teleportation : MonoBehaviour
         transform.position = newPosition;
     }
 
-    // ¿ÉÊÓ»¯µ÷ÊÔ
+    // å¯è§†åŒ–è°ƒè¯•
     void OnDrawGizmosSelected()
     {
         if (characterCollider == null) return;
