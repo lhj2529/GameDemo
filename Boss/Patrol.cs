@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Patrol : MonoBehaviour
 {
-    [Header("ÒÆ¶¯ÉèÖÃ")]
-    public float moveRadius = 5f;    // Ñ²Âß°ë¾¶
-    public float speed = 3f;        // ÒÆ¶¯ËÙ¶È
-    public float minUpdateTime = 1f; // ×î¶ÌÄ¿±ê¸üĞÂ¼ä¸ô
-    public float maxUpdateTime = 3f; // ×î³¤Ä¿±ê¸üĞÂ¼ä¸ô
+    [Header("ç§»åŠ¨è®¾ç½®")]
+    public float moveRadius = 5f;    // å·¡é€»åŠå¾„
+    public float speed = 3f;        // ç§»åŠ¨é€Ÿåº¦
+    public float minUpdateTime = 1f; // æœ€çŸ­ç›®æ ‡æ›´æ–°é—´éš”
+    public float maxUpdateTime = 3f; // æœ€é•¿ç›®æ ‡æ›´æ–°é—´éš”
 
     private Vector2 targetPosition;
     private bool isMoving = false;
@@ -36,7 +36,7 @@ public class Patrol : MonoBehaviour
     {
         while (true)
         {
-            // µÈ´ıËæ»úÊ±¼äºó¸üĞÂÄ¿±ê
+            // ç­‰å¾…éšæœºæ—¶é—´åæ›´æ–°ç›®æ ‡
             yield return new WaitForSeconds(Random.Range(minUpdateTime, maxUpdateTime));
             SetNewRandomTarget();
         }
@@ -46,14 +46,14 @@ public class Patrol : MonoBehaviour
     {
         if (isMoving)
         {
-            // ³ÖĞøÏòÄ¿±êÎ»ÖÃÒÆ¶¯
+            // æŒç»­å‘ç›®æ ‡ä½ç½®ç§»åŠ¨
             transform.position = Vector2.MoveTowards(
                 transform.position,
                 targetPosition,
                 speed * Time.deltaTime
             );
 
-            // ¸üĞÂÃæÏò·½Ïò£¨¿ÉÑ¡£©
+            // æ›´æ–°é¢å‘æ–¹å‘ï¼ˆå¯é€‰ï¼‰
             UpdateFacingDirection();
         }
     }
@@ -69,21 +69,21 @@ public class Patrol : MonoBehaviour
 
     void SetNewRandomTarget()
     {
-        // ÔÚÒÆ¶¯°ë¾¶·¶Î§ÄÚÉú³ÉËæ»úµã
+        // åœ¨ç§»åŠ¨åŠå¾„èŒƒå›´å†…ç”Ÿæˆéšæœºç‚¹
         float randomOffset = Random.Range(-moveRadius, moveRadius);
         targetPosition = new Vector2(randomOffset, transform.position.y);
     }
 
     void UpdateFacingDirection()
     {
-        // ¸ù¾İÒÆ¶¯·½Ïò·­×ªSprite
+        // æ ¹æ®ç§»åŠ¨æ–¹å‘ç¿»è½¬Sprite
         if (targetPosition.x > transform.position.x)
         {
-            this.GetComponent<SpriteRenderer>().flipX = true; // Íæ¼ÒÔÚzuo²à
+            this.GetComponent<SpriteRenderer>().flipX = true; // ç©å®¶åœ¨zuoä¾§
         }
         else if (targetPosition.x < transform.position.x)
         {
-            this.GetComponent<SpriteRenderer>().flipX = false;  // Íæ¼ÒÔÚyou²à
+            this.GetComponent<SpriteRenderer>().flipX = false;  // ç©å®¶åœ¨youä¾§
         }
     }
 }
